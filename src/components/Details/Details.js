@@ -3,9 +3,9 @@ import { connect } from 'react-redux'
 
 class Details extends Component {
 
-    // state = {
-    //     category: 0
-    // }
+    backButton = () => {
+        this.props.history.push('/');
+    }
 
     // componentDidMount() {
     //     this.getFavorites()
@@ -18,7 +18,7 @@ class Details extends Component {
     render() {
         return (
             <div>
-                
+                <button onClick = {this.backButton}>Back to List</button>
             </div>
         );
     }
