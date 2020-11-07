@@ -7,8 +7,8 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import logger from 'redux-logger';
 import createSagaMiddleware from 'redux-saga';
-// import { put, takeEvery } from 'redux-saga/effects';
-// import axios from 'axios';
+import { put, takeEvery } from 'redux-saga/effects';
+import axios from 'axios';
 
 
 
@@ -33,9 +33,17 @@ const genres = (state = [], action) => {
 }
 // Create the watcherSaga generator function
 function* watcherSaga() {
+    yield takeEvery('GET_MOVIES', getMovies);
 
 }
-
+function* getMovies() {
+    try {
+        const movieResponse = yield axios.get(`/api/genre/`);
+        yield put({type: 'SET_MOVIES', payload: movieResponse.data});
+    } catch (error ){ 
+        console.log(error);
+    }
+}
 // Create sagaMiddleware
 const sagaMiddleware = createSagaMiddleware();
 

@@ -3,22 +3,24 @@ import { connect } from 'react-redux'
 
 class Home extends Component {
 
-    // state = {
-    //     category: 0
-    // }
 
-    // componentDidMount() {
-    //     this.getFavorites()
-    // }
 
-    // getFavorites = () => {
-    //     this.props.dispatch({ type: 'GET_FAVORITES' })
-    // }
+    componentDidMount() {
+        this.getFavorites()
+    }
+
+    getFavorites = () => {
+        this.props.dispatch({ type: 'GET_MOVIES' })
+    }
 
     render() {
         return (
             <div>
-              
+
+                {/* {JSON.stringify(this.props.reduxState.movies)} */}
+                {this.props.reduxState.movies.map((movie) => {
+                    return <img key={movie.id} alt="" src={movie.poster} />
+                })}
             </div>
         );
     }
