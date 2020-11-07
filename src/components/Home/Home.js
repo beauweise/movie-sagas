@@ -12,10 +12,10 @@ class Home extends Component {
     getFavorites = () => {
         this.props.dispatch({ type: 'GET_MOVIES' })
     }
-    getDetails = (details, taco) => {
+    getDetails = (id,details, taco) => {
         console.log('get taco',taco);
         
-        this.props.dispatch({ type: 'SET_MOVIE_DETAILS', payload: {details:details,taco:taco} });
+        this.props.dispatch({ type: 'SET_MOVIE_DETAILS', payload: {id:id,details:details,taco:taco} });
         this.props.history.push('/Details');
 
     }
@@ -26,7 +26,7 @@ class Home extends Component {
 
                 {/* {JSON.stringify(this.props.reduxState.movies)} */}
                 {this.props.reduxState.movies.map((movie) => {
-                    return <img onClick={() => this.getDetails(movie.poster, movie.description)}
+                    return <img className='movies' onClick={() => this.getDetails(movie.id,movie.poster, movie.description)}
                         key={movie.id} alt="" src={movie.poster} />
                 })}
             </div>

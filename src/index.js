@@ -7,7 +7,7 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import logger from 'redux-logger';
 import createSagaMiddleware from 'redux-saga';
-import { put, takeEvery } from 'redux-saga/effects';
+import { put, take, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
 
 
@@ -22,8 +22,8 @@ const movies = (state = [], action) => {
     }
 }
 const oneMovie = (state = [], action) => {
-    console.log('onemove set movie',state,action);
-    
+    console.log('onemove set movie', state, action);
+
     switch (action.type) {
         case 'SET_MOVIE_DETAILS':
             return action.payload;
@@ -34,6 +34,8 @@ const oneMovie = (state = [], action) => {
 
 // Used to store the movie genres
 const genres = (state = [], action) => {
+
+    
     switch (action.type) {
         case 'SET_GENRES':
             return action.payload;
@@ -44,13 +46,26 @@ const genres = (state = [], action) => {
 // Create the watcherSaga generator function
 function* watcherSaga() {
     yield takeEvery('GET_MOVIES', getMovies);
-
+    yield takeEvery('SET_MOVIE_DETAILS', getGenres);
 }
+
+function* getGenres(action) {
+    
+    try {
+        console.log("!!!!!!!!!!!!!!!",action);
+        
+        const genreResponse = yield axios.get(`/api/genre/${action.payload.id}`);
+        yield put({ type: 'SET_GENRES', payload: genreResponse.data })
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 function* getMovies() {
     try {
-        const movieResponse = yield axios.get(`/api/genre/`);
-        yield put({type: 'SET_MOVIES', payload: movieResponse.data});
-    } catch (error ){ 
+        const movieResponse = yield axios.get(`/api/movieGenre`);
+        yield put({ type: 'SET_MOVIES', payload: movieResponse.data });
+    } catch (error) {
         console.log(error);
     }
 }
@@ -71,6 +86,6 @@ const storeInstance = createStore(
 // Pass rootSaga into our sagaMiddleware
 sagaMiddleware.run(watcherSaga);
 
-ReactDOM.render(<Provider store={storeInstance}><App /></Provider>, 
+ReactDOM.render(<Provider store={storeInstance}><App /></Provider>,
     document.getElementById('root'));
 registerServiceWorker();
