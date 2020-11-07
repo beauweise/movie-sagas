@@ -21,6 +21,16 @@ const movies = (state = [], action) => {
             return state;
     }
 }
+const oneMovie = (state = [], action) => {
+    console.log('onemove set movie',state,action);
+    
+    switch (action.type) {
+        case 'SET_MOVIE_DETAILS':
+            return action.payload;
+        default:
+            return state;
+    }
+}
 
 // Used to store the movie genres
 const genres = (state = [], action) => {
@@ -52,6 +62,7 @@ const storeInstance = createStore(
     combineReducers({
         movies,
         genres,
+        oneMovie,
     }),
     // Add sagaMiddleware to our store
     applyMiddleware(sagaMiddleware, logger),

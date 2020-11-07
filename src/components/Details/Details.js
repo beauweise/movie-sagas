@@ -18,6 +18,10 @@ class Details extends Component {
     render() {
         return (
             <div>
+                {/* {JSON.stringify(this.props.reduxState.oneMovie)} */}
+                <img   alt="" src={this.props.reduxState.oneMovie.details} />
+                <p>{this.props.reduxState.oneMovie.taco}</p>
+                <br/>
                 <button onClick = {this.backButton}>Back to List</button>
             </div>
         );
