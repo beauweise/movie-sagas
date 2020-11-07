@@ -4,19 +4,13 @@ import './index.css';
 import App from './components/App/App.js';
 import registerServiceWorker from './registerServiceWorker';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
-// Provider allows us to use redux within our react app
 import { Provider } from 'react-redux';
 import logger from 'redux-logger';
-// Import saga middleware
 import createSagaMiddleware from 'redux-saga';
+// import { put, takeEvery } from 'redux-saga/effects';
+// import axios from 'axios';
 
-// Create the rootSaga generator function
-function* rootSaga() {
 
-}
-
-// Create sagaMiddleware
-const sagaMiddleware = createSagaMiddleware();
 
 // Used to store movies returned from the server
 const movies = (state = [], action) => {
@@ -37,6 +31,13 @@ const genres = (state = [], action) => {
             return state;
     }
 }
+// Create the watcherSaga generator function
+function* watcherSaga() {
+
+}
+
+// Create sagaMiddleware
+const sagaMiddleware = createSagaMiddleware();
 
 // Create one store that all components can use
 const storeInstance = createStore(
@@ -49,7 +50,7 @@ const storeInstance = createStore(
 );
 
 // Pass rootSaga into our sagaMiddleware
-sagaMiddleware.run(rootSaga);
+sagaMiddleware.run(watcherSaga);
 
 ReactDOM.render(<Provider store={storeInstance}><App /></Provider>, 
     document.getElementById('root'));
