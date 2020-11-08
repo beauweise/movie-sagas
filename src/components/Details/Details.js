@@ -10,6 +10,7 @@ class Details extends Component {
     render() {
         return (
             <div>
+                <h1>Movies!</h1>
                 <img alt="" src={this.props.reduxState.oneMovie.image} />
                 <br/>
                Genres:
