@@ -12,6 +12,16 @@ CREATE TABLE "genres" (
 );
 
 
+create table "movie_genres"(
+"id" Serial Primary Key,
+"genre_id" INT REFERENCES "genres",
+"movie_id" INT REFERENCES "movies"
+);
+
+SELECT * FROM "movies"
+JOIN "movie_genres" ON "movie_genres"."movie_id" = "movies"."id"
+JOIN "genres" ON "movie_genres"."genre_id" = "genres"."id";
+
 -- CREATE JUNCTION TABLE
 -- You will need to create the junction table that stores the relationships between "movies" and "genres"
 -- This table will need to be populated with some data as well (INSERTS)
