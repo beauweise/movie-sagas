@@ -7,7 +7,7 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import logger from 'redux-logger';
 import createSagaMiddleware from 'redux-saga';
-import { put, take, takeEvery } from 'redux-saga/effects';
+import { put, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
 
 
@@ -57,7 +57,7 @@ function* getGenres(action) {
         const genreResponse = yield axios.get(`/api/genre/${action.payload.id}`);
         yield put({ type: 'SET_GENRES', payload: genreResponse.data })
     } catch (error) {
-        console.log(error);
+        console.log(error,action.payload.id);
     }
 }
 
