@@ -12,31 +12,31 @@ router.post('/', (req, res) => {
 
   // FIRST QUERY MAKES MOVIE
   pool.query(insertMovieQuery, [req.body.title, req.body.poster, req.body.description])
-    .then(result => {
-      console.log('New Movie Id:', result.rows[0].id); //ID IS HERE!
+  .then(result => {
+    console.log('New Movie Id:', result.rows[0].id); //ID IS HERE!
+    
+    const createdMovieId = result.rows[0].id
 
-      const createdMovieId = result.rows[0].id
-
-      // Depending on how you make your junction table, this insert COULD change.
-      const insertMovieGenreQuery = `
-      INSERT INTO "movie_genres" ("genre_id","movie_id")
+    // Depending on how you make your junction table, this insert COULD change.
+    const insertMovieGenreQuery = `
+      INSERT INTO "movie_genres" ("movie_id", "genre_id")
       VALUES  ($1, $2);
       `
       // SECOND QUERY MAKES GENRE FOR THAT NEW MOVIE
-      pool.query(insertMovieGenreQuery, [createdMovieId, req.body.genre_id]).then(result => {
+      pool.query(insertMovieGenreQuery, [createdMovieId, req.body.genre]).then(result => {
         //Now that both are done, send back success!
         res.sendStatus(201);
-      }).catch((err) => {
+      }).catch(err => {
         // catch for second query
-        console.log("HEEEEELLLLPPPP",err);
+        console.log(err);
         res.sendStatus(500)
       })
 
-      // Catch for first query
-    }).catch(err => {
-      console.log(err);
-      res.sendStatus(500)
-    })
+// Catch for first query
+  }).catch(err => {
+    console.log(err);
+    res.sendStatus(500)
+  })
 })
 
 module.exports = router;

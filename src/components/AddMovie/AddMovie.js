@@ -51,7 +51,7 @@ class AddMovie extends Component {
                 <select id="lang" onChange={(event) => this.handleChange('genre', event)} value={this.state.value}>
                    
                     {this.props.reduxState.genres.map((genre) => {
-                        return <option key = {genre.id} value={this.state.value}>{genre.name}</option>
+                        return <option key = {genre.id} value={genre.id}>{genre.name}</option>
                     })}
                </select>
 
