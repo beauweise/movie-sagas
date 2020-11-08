@@ -28,3 +28,8 @@
   margin-right: 10px;
   
 }
+.details{
+  width: 900px;
+  margin: auto;
+  background-color: cyan;
+}

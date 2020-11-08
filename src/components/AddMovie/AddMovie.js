@@ -18,9 +18,10 @@ class AddMovie extends Component {
     render() {
         return (
             <div>
-               <input></input>
-               <input></input>
-               <input></input>
+                
+               <input>Title</input>
+               <input>Url</input>
+               <input>Description</input>
                <dropdown></dropdown>
                <button>Cancel</button>
                <button>Save</button>

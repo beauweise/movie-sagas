@@ -9,8 +9,8 @@ class App extends Component {
   // Renders the entire app on the DOM
   render() {
     return (
+      
       <div className="App">
-        <h1>Movies!</h1>
         <Router>
           <Route exact path="/" component={Home}/>
           <Route exact path="/Details" component={Details}/>
@@ -18,6 +18,7 @@ class App extends Component {
         </Router>
         
       </div>
+      
     );
   }
 }
