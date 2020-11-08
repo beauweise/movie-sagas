@@ -54,6 +54,15 @@ function* watcherSaga() {
     yield takeEvery('GET_MOVIES', getMovies);
     yield takeEvery('SET_MOVIE_DETAILS', getGenres);
     yield takeEvery('ADD_MOVIE',addMovie)
+    yield takeEvery('GET_GENRES',setGenres)
+}
+function* setGenres(action) {
+    try {
+        const genreResponse = yield axios.get(`/api/genre/`);
+        yield put({ type: 'SET_GENRES', payload: genreResponse.data })
+    } catch (error) {
+        console.log(error,action.payload);
+    }
 }
 function* addMovie(action) {
     console.log('hello from add addMovie', action.payload);
@@ -67,8 +76,6 @@ function* addMovie(action) {
 function* getGenres(action) {
     
     try {
-        console.log("!!!!!!!!!!!!!!!",action);
-        
         const genreResponse = yield axios.get(`/api/genre/${action.payload.id}`);
         yield put({ type: 'SET_GENRES', payload: genreResponse.data })
     } catch (error) {

@@ -54,4 +54,6 @@ VALUES
 ('Romantic'),
 ('Science Fiction'),
 ('Space-Opera'),
-('Superhero');
+('Superhero')
+('Thriller')
+('Action');
