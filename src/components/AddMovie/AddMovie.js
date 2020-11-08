@@ -6,11 +6,19 @@ class AddMovie extends Component {
     state = {
         addMovie: {
             title:'',
-            url:'',
+            poster:'',
             description:'' 
         }
     }
+    cancelAddMovie = ()=>{
+        this.props.history.push('/')
+    }
+
     handleChange = (propertyName,event) => {
+        if (event === '' ) {// not allowing for empty inputs
+            alert('Please enter all info');
+            return;
+        }
         this.setState({
             addMovie: {
               ...this.state.addMovie,
@@ -19,8 +27,8 @@ class AddMovie extends Component {
           })
     }
     saveMovie = ()=>{
-        
-        this.props.dispatch({ type: 'GET_FAVORITES' })
+
+        this.props.dispatch({ type: 'ADD_MOVIE',payload:this.state.addMovie })
     }
 
     render() {
@@ -28,10 +36,10 @@ class AddMovie extends Component {
             <div>
                 <h1>Add Movie!</h1>
                <input placeholder='Title' onChange={(event) => this.handleChange('title',event) }></input>
-               <input placeholder = 'URL' onChange={(event) => this.handleChange('url',event) }></input>
+               <input placeholder = 'URL' onChange={(event) => this.handleChange('poster',event) }></input>
                <input placeholder = 'Description' onChange={(event) => this.handleChange('description',event) }></input>
                <br/>
-               <button className = 'cancelbtn'>Cancel</button>
+               <button className = 'cancelbtn' onClick = {this.cancelAddMovie}>Cancel</button>
                <button onClick= {this.saveMovie}>Save</button>
             </div>
         );

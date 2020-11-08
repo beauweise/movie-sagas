@@ -34,8 +34,6 @@ const oneMovie = (state = [], action) => {
 
 // Used to store the movie genres
 const genres = (state = [], action) => {
-
-    
     switch (action.type) {
         case 'SET_GENRES':
             return action.payload;
@@ -43,12 +41,29 @@ const genres = (state = [], action) => {
             return state;
     }
 }
+// const addMovie =(state=[],action)=>{
+//     switch (action.type) {
+//         case 'ADD_MOVIE':
+//             return action.payload;
+//         default:
+//             return state;
+//     }
+// }
 // Create the watcherSaga generator function
 function* watcherSaga() {
     yield takeEvery('GET_MOVIES', getMovies);
     yield takeEvery('SET_MOVIE_DETAILS', getGenres);
+    yield takeEvery('ADD_MOVIE',addMovie)
 }
-
+function* addMovie(action) {
+    console.log('hello from add addMovie', action.payload);
+    try {
+        yield axios.post('/api/movie/', action.payload);
+        
+    } catch (error) {
+        console.log('error in post', error);
+    }
+}
 function* getGenres(action) {
     
     try {

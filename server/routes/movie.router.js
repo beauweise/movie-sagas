@@ -12,14 +12,14 @@ router.post('/', (req, res) => {
 
   // FIRST QUERY MAKES MOVIE
   pool.query(insertMovieQuery, [req.body.title, req.body.poster, req.body.description])
-  .then(result => {
-    console.log('New Movie Id:', result.rows[0].id); //ID IS HERE!
-    
-    const createdMovieId = result.rows[0].id
+    .then(result => {
+      console.log('New Movie Id:', result.rows[0].id); //ID IS HERE!
 
-    // Depending on how you make your junction table, this insert COULD change.
-    const insertMovieGenreQuery = `
-      INSERT INTO "movies_genres" ("movies_id", "genres_id")
+      const createdMovieId = result.rows[0].id
+
+      // Depending on how you make your junction table, this insert COULD change.
+      const insertMovieGenreQuery = `
+      INSERT INTO "movie_genres" ("genre_id","movie_id")
       VALUES  ($1, $2);
       `
       // SECOND QUERY MAKES GENRE FOR THAT NEW MOVIE
@@ -28,15 +28,15 @@ router.post('/', (req, res) => {
         res.sendStatus(201);
       }).catch(err => {
         // catch for second query
-        console.log(err);
+        console.log("HEEEEELLLLPPPP",err);
         res.sendStatus(500)
       })
 
-// Catch for first query
-  }).catch(err => {
-    console.log(err);
-    res.sendStatus(500)
-  })
+      // Catch for first query
+    }).catch(err => {
+      console.log(err);
+      res.sendStatus(500)
+    })
 })
 
 module.exports = router;
