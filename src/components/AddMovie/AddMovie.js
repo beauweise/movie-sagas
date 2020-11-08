@@ -18,12 +18,12 @@ class AddMovie extends Component {
     render() {
         return (
             <div>
-                
-               <input>Title</input>
-               <input>Url</input>
-               <input>Description</input>
-               <dropdown></dropdown>
-               <button>Cancel</button>
+                <h1>Add Movie!</h1>
+               <input placeholder='Title'></input>
+               <input placeholder = 'URL'></input>
+               <input placeholder = 'Description'></input>
+               <br/>
+               <button className = 'cancelbtn'>Cancel</button>
                <button>Save</button>
             </div>
         );
