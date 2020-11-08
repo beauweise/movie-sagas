@@ -21,6 +21,7 @@ const movies = (state = [], action) => {
             return state;
     }
 }
+//Used to store selected move data
 const oneMovie = (state = [], action) => {
     console.log('onemove set movie', state, action);
 
@@ -41,15 +42,7 @@ const genres = (state = [], action) => {
             return state;
     }
 }
-// const addMovie =(state=[],action)=>{
-//     switch (action.type) {
-//         case 'ADD_MOVIE':
-//             return action.payload;
-//         default:
-//             return state;
-//     }
-// }
-// Create the watcherSaga generator function
+
 function* watcherSaga() {
     yield takeEvery('GET_MOVIES', getMovies);
     yield takeEvery('SET_MOVIE_DETAILS', getGenres);
@@ -57,6 +50,7 @@ function* watcherSaga() {
     yield takeEvery('GET_GENRES',setGenres)
 }
 function* setGenres(action) {
+    //getting genre to set on page load for the add movie page dropdown selection
     try {
         const genreResponse = yield axios.get(`/api/genre/`);
         yield put({ type: 'SET_GENRES', payload: genreResponse.data })
@@ -65,7 +59,7 @@ function* setGenres(action) {
     }
 }
 function* addMovie(action) {
-    console.log('hello from add addMovie', action.payload);
+    //posting the added movie from AddMovie page and sending to server then to db
     try {
         yield axios.post('/api/movie/', action.payload);
         
@@ -74,7 +68,7 @@ function* addMovie(action) {
     }
 }
 function* getGenres(action) {
-    
+    //gets genres for selected image on homepage and matches from db
     try {
         const genreResponse = yield axios.get(`/api/genre/${action.payload.id}`);
         yield put({ type: 'SET_GENRES', payload: genreResponse.data })
@@ -84,6 +78,7 @@ function* getGenres(action) {
 }
 
 function* getMovies() {
+    //gets movie from db then sends to SET_MOVIES reducer
     try {
         const movieResponse = yield axios.get(`/api/movieGenre`);
         yield put({ type: 'SET_MOVIES', payload: movieResponse.data });

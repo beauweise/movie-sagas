@@ -39,6 +39,7 @@ class AddMovie extends Component {
     saveMovie = () => {
 
         this.props.dispatch({ type: 'ADD_MOVIE', payload: this.state.addMovie })
+        
     }
 
     render() {
@@ -48,7 +49,8 @@ class AddMovie extends Component {
                 <input placeholder='Title' onChange={(event) => this.handleChange('title', event)}></input>
                 <input placeholder='URL' onChange={(event) => this.handleChange('poster', event)}></input>
                 <input placeholder='Description' onChange={(event) => this.handleChange('description', event)}></input>
-                <select id="lang" onChange={(event) => this.handleChange('genre', event)} value={this.state.value}>
+                <label for="Genre">Choose a Genre:</label>
+                <select id="Genre" name='Genre' onChange={(event) => this.handleChange('genre', event)} value={this.state.value}>
                    
                     {this.props.reduxState.genres.map((genre) => {
                         return <option key = {genre.id} value={genre.id}>{genre.name}</option>
