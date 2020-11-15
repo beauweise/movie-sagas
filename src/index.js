@@ -46,8 +46,8 @@ const genres = (state = [], action) => {
 function* watcherSaga() {
     yield takeEvery('GET_MOVIES', getMovies);
     yield takeEvery('SET_MOVIE_DETAILS', getGenres);
-    yield takeEvery('ADD_MOVIE',addMovie)
-    yield takeEvery('GET_GENRES',setGenres)
+    yield takeEvery('ADD_MOVIE',addMovie);
+    yield takeEvery('GET_GENRES',setGenres);
 }
 function* setGenres(action) {
     //getting genre to set on page load for the add movie page dropdown selection
