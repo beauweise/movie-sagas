@@ -50,10 +50,10 @@ class AddMovie extends Component {
                 <input placeholder='URL' onChange={(event) => this.handleChange('poster', event)}></input>
                 <input placeholder='Description' onChange={(event) => this.handleChange('description', event)}></input>
                 <label for="Genre">Choose a Genre:</label>
-                <select id="Genre" name='Genre' onChange={(event) => this.handleChange('genre', event)} value={this.state.value}>
-                   
+                <select id="Genre" placeholder= "Genre" name='Genre' onChange={(event) => this.handleChange('genre', event)} value={this.state.value}>
+                    <option hidden value=''>Genre</option>
                     {this.props.reduxState.genres.map((genre) => {
-                        return <option key = {genre.id} value={genre.id}>{genre.name}</option>
+                        return <option  key = {genre.id} value={genre.id}>{genre.name}</option>
                     })}
                </select>
 
